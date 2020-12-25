@@ -1,0 +1,10 @@
+.git
+.idea
+.vscode/
+*.sh
+*.bat
+node_modules
+dist
+.DS_Store
+package-lock.json
+yarn.lock

@@ -1,0 +1,131 @@
+<template>
+  <page title="数智Pi">
+    <view class="page-demo">
+      <view class="text-area">
+        <text class="line-text">{{content}}</text>
+      </view>
+      <view class="btn" c-bind:tap="hitokoto"><text class="active-text">Hitokoto 一言</text></view>
+      <view class="btn" c-bind:tap="soul"><text class="active-text">心灵毒鸡汤</text></view>
+      <view class="btn" c-bind:tap="qinghua"><text class="active-text">土味情话</text></view>
+      <view class="btn" c-bind:tap="money"><text class="active-text">说不定就中了</text></view>
+    </view>
+    <c-loading loading="{{loading}}" tip="拼命加载中..."></c-loading>
+  </page>
+</template>
+<script>
+import cml from 'chameleon-api'
+
+class Text {
+  data = {
+    loading: false,
+    content: "点击下面按钮试试吧~~~"
+  }
+  computed = {
+  }
+  methods = {
+    hitokoto() {
+      this.loading = true
+      cml.get({
+        url: 'https://api.sunao.site/r/hitokoto'
+      }).then(res => {
+        this.content = `${res.hitokoto} —— ${res.from}`
+        this.loading = false
+      }, err => {
+        this.loading = false
+        cml.showToast({
+          message: "服务超限，明天来吧！",
+          duration: 2000
+        })
+      })
+    },
+    soul() {
+      this.loading = true
+      cml.get({
+        url: 'https://api.sunao.site/mp/soul'
+      }).then(res => {
+        this.content = res.data.title
+        this.loading = false
+      }, err => {
+        this.loading = false
+        cml.showToast({
+          message: "服务超限，明天来吧！",
+          duration: 2000
+        })
+      })
+    },
+    qinghua() {
+      this.loading = true
+      cml.get({
+        url: 'https://api.sunao.site/mp/qinghua'
+      }).then(res => {
+        this.content = res.data.content
+        this.loading = false
+      }, err => {
+        this.loading = false
+        cml.showToast({
+          message: "服务超限，明天来吧！",
+          duration: 2000
+        })
+      })
+    },
+    money() {
+      this.loading = true
+      let list = [];
+      while (list.length < 7) {
+        let number = Math.ceil(Math.random() * (list.length != 7 ? 33 : 16));
+        let formatNumber = (Array(2).join("0") + number).slice(-2)
+        if (!list.includes(formatNumber)) { // 生成的随机数不能重复
+          list.push(formatNumber)
+        }
+      }
+      let red = list.slice(0, 6).sort((a, b) => a - b); // 红色
+      let blue = list.slice(6, 7); // 蓝色
+      this.content = [...red].join("  ") + "    " + [...blue].join(" ")
+      this.loading = false
+    }
+  }
+}
+export default new Text();
+</script>
+<style scoped>
+ .page-demo {
+   background: #F8F8F8;
+   flex: 1;
+ }
+.text-area {
+  margin: 100cpx 50cpx 100cpx;
+  padding: 40cpx;
+  min-height: 300cpx;
+  background-color: #fff;
+  font-size: 30cpx;
+  color: #353535;
+  text-align: center;
+}
+.line-text {
+  font-size: 36cpx;
+  text-align: center;
+}
+.btn {
+  height: 100cpx;
+  width: 600cpx;
+  border-radius: 6cpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30cpx 75cpx;
+  border: 1px solid #999;
+}
+.active-text {
+  color: #000;
+  font-size: 40cpx;
+}
+</style>
+<script cml-type="json">
+{
+  "base": {
+        "usingComponents": {
+            "c-loading": "cml-ui/components/c-loading/c-loading"
+        }
+    }
+}
+</script>
