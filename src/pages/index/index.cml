@@ -4,6 +4,7 @@
       <view class="text-area">
         <text class="line-text">{{content}}</text>
       </view>
+      <view class="btn" c-bind:tap="cube"><text class="active-text">魔方</text></view>
       <view class="btn" c-bind:tap="hitokoto"><text class="active-text">Hitokoto 一言</text></view>
       <view class="btn" c-bind:tap="soul"><text class="active-text">心灵毒鸡汤</text></view>
       <view class="btn" c-bind:tap="qinghua"><text class="active-text">土味情话</text></view>
@@ -72,7 +73,7 @@ class Text {
       this.loading = true
       let list = [];
       while (list.length < 7) {
-        let number = Math.ceil(Math.random() * (list.length != 7 ? 33 : 16));
+        let number = Math.ceil(Math.random() * (list.length != 6 ? 33 : 16));
         let formatNumber = (Array(2).join("0") + number).slice(-2)
         if (!list.includes(formatNumber)) { // 生成的随机数不能重复
           list.push(formatNumber)
@@ -82,6 +83,13 @@ class Text {
       let blue = list.slice(6, 7); // 蓝色
       this.content = [...red].join("  ") + "    " + [...blue].join(" ")
       this.loading = false
+    },
+    cube() {
+      cml.navigateTo({
+        path: '/pages/rubik-cube/rubik-cube',
+        query: {
+        }
+      })
     }
   }
 }
@@ -93,8 +101,8 @@ export default new Text();
    flex: 1;
  }
 .text-area {
-  margin: 100cpx 50cpx 100cpx;
-  padding: 40cpx;
+  margin: 50cpx 50cpx 50cpx;
+  padding: 20cpx;
   min-height: 300cpx;
   background-color: #fff;
   font-size: 30cpx;

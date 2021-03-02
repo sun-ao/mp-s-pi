@@ -1,0 +1,190 @@
+<template>
+  <page title="魔方">
+    <view style="background-color: #ccc;">
+      <view class="row">
+        <view class="item"></view>
+        <view class="item-block color-yellow"></view>
+        <view class="item-block color-yellow"></view>
+        <view class="item-block color-yellow"></view>
+        <view class="item"></view>
+      </view>
+      <view class="row">
+        <view class="item"></view>
+        <view class="item-block color-yellow"></view>
+        <view class="item-block color-yellow"></view>
+        <view class="item-block color-yellow"></view>
+        <view class="item"></view>
+      </view>
+      <view class="row">
+        <view class="item"></view>
+        <view class="item-block color-yellow"></view>
+        <view class="item-block color-yellow"></view>
+        <view class="item-block color-yellow"></view>
+        <view class="item"></view>
+      </view>
+      <view class="row">
+        <view class="item-block color-blue"></view>
+        <view class="item-block color-blue"></view>
+        <view class="item-block color-blue"></view>
+        <view class="item-block color-red"></view>
+        <view class="item-block color-red"></view>
+        <view class="item-block color-red"></view>
+        <view class="item-block color-green"></view>
+        <view class="item-block color-green"></view>
+        <view class="item-block color-green"></view>
+      </view>
+      <view class="row">
+        <view class="item-block color-blue"></view>
+        <view class="item-block color-blue"></view>
+        <view class="item-block color-blue"></view>
+        <view class="item-block color-red"></view>
+        <view class="item-block color-red"></view>
+        <view class="item-block color-red"></view>
+        <view class="item-block color-green"></view>
+        <view class="item-block color-green"></view>
+        <view class="item-block color-green"></view>
+      </view>
+      <view class="row">
+        <view class="item-block color-blue"></view>
+        <view class="item-block color-blue"></view>
+        <view class="item-block color-blue"></view>
+        <view class="item-block color-red"></view>
+        <view class="item-block color-red"></view>
+        <view class="item-block color-red"></view>
+        <view class="item-block color-green"></view>
+        <view class="item-block color-green"></view>
+        <view class="item-block color-green"></view>
+      </view>
+      <view class="row">
+        <view class="item"></view>
+        <view class="item-block color-white"></view>
+        <view class="item-block color-white"></view>
+        <view class="item-block color-white"></view>
+        <view class="item"></view>
+      </view>
+      <view class="row">
+        <view class="item"></view>
+        <view class="item-block color-white"></view>
+        <view class="item-block color-white"></view>
+        <view class="item-block color-white"></view>
+        <view class="item"></view>
+      </view>
+      <view class="row">
+        <view class="item"></view>
+        <view class="item-block color-white"></view>
+        <view class="item-block color-white"></view>
+        <view class="item-block color-white"></view>
+        <view class="item"></view>
+      </view>
+      <view class="row">
+        <view class="item"></view>
+        <view class="item-block color-orange"></view>
+        <view class="item-block color-orange"></view>
+        <view class="item-block color-orange"></view>
+        <view class="item"></view>
+      </view>
+      <view class="row">
+        <view class="item"></view>
+        <view class="item-block color-orange"></view>
+        <view class="item-block color-orange"></view>
+        <view class="item-block color-orange"></view>
+        <view class="item"></view>
+      </view>
+      <view class="row">
+        <view class="item"></view>
+        <view class="item-block color-orange"></view>
+        <view class="item-block color-orange"></view>
+        <view class="item-block color-orange"></view>
+        <view class="item"></view>
+      </view>
+    </view>
+  </page>
+</template>
+
+<script>
+
+class RubikCube   {
+
+  data = {
+  }
+
+  computed = {
+  }
+
+  watch  = {
+  }
+
+  methods = {
+  }
+
+  beforeCreate(query) {
+  }
+
+  created(query) {
+  }
+
+  beforeMount(query) {
+  }
+
+  onShow() {
+  }
+
+  mounted() {
+  }
+
+  onHide() {
+  }
+
+  beforeDestroy() {
+  }
+
+  destroyed() {
+  }
+}
+
+export default new RubikCube();
+</script>
+
+<style>
+ .color-red {
+    background-color: red;
+ }
+ .color-orange {
+    background-color: orange;
+ }
+ .color-yellow {
+    background-color: yellow;
+ }
+ .color-white {
+    background-color: white;
+ }
+ .color-blue {
+    background-color: blue;
+ }
+ .color-green {
+    background-color: green;
+ }
+ .item {
+    flex:3;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10%;
+  }
+  .item-block {
+    flex:1;
+    justify-content: center;
+    align-items: center;
+    border: 1cpx solid #ccc;
+    padding-top: 10%;
+  }
+  .row {
+    flex-direction: row;
+  }
+</style>
+
+<script cml-type="json">
+{
+  "base": {
+  }
+}
+</script>
