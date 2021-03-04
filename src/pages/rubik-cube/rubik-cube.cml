@@ -1,6 +1,6 @@
 <template>
   <page title="魔方">
-    <view style="background-color: #ccc;">
+    <view>
       <view class="row">
         <view class="item"></view>
         <view class="{{'item-block color-' + list[0][0]}}" c-bind:tap="change(0,0)"></view>
@@ -106,6 +106,7 @@
 </template>
 
 <script>
+import cml from 'chameleon-api'
 
 class RubikCube   {
 
@@ -138,6 +139,26 @@ class RubikCube   {
           this.content += ['U','R','F','D','L','B'][this.list[i][j]];
         }
       }
+      this.loading = true
+      cml.post({
+        url: 'https://api.sunao.site/pi/v1/cube/solve/' + this.content
+      }).then(res => {
+        this.loading = false
+        if (res.code == 1) {
+          this.content = res.result
+        } else {
+          cml.showToast({
+            message: res.message || "服务异常，请正确填充实际的配色！",
+            duration: 2000
+          })
+        }
+      }, err => {
+        this.loading = false
+        cml.showToast({
+          message: "服务异常，请正确填充实际的配色！",
+          duration: 2000
+        })
+      })
     }
   }
 
@@ -170,6 +191,9 @@ export default new RubikCube();
 </script>
 
 <style>
+  page {
+    background-color: #ccc;
+  }
  .color-2 {
     background-color: red;
  }
@@ -198,7 +222,7 @@ export default new RubikCube();
     flex:1;
     justify-content: center;
     align-items: center;
-    border: 1cpx solid #ccc;
+    border: 1cpx solid #999;
     padding-top: 10%;
   }
   .row {

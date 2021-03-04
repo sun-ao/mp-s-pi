@@ -4,7 +4,7 @@
       <view class="text-area">
         <text class="line-text">{{content}}</text>
       </view>
-      <view class="btn" c-bind:tap="cube"><text class="active-text">魔方</text></view>
+      <view class="btn" c-bind:tap="cube"><text class="active-text">魔方求解</text></view>
       <view class="btn" c-bind:tap="hitokoto"><text class="active-text">Hitokoto 一言</text></view>
       <view class="btn" c-bind:tap="soul"><text class="active-text">心灵毒鸡汤</text></view>
       <view class="btn" c-bind:tap="qinghua"><text class="active-text">土味情话</text></view>
@@ -96,6 +96,9 @@ class Text {
 export default new Text();
 </script>
 <style scoped>
+  page {
+    background-color: #F8F8F8;
+  }
  .page-demo {
    background: #F8F8F8;
    flex: 1;
