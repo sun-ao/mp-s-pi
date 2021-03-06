@@ -7,7 +7,7 @@ const apiPrefix = 'https://api.sunao.site/mp';
 cml.config.merge({
   templateLang: "cml",
   templateType: "html",
-  platforms: ["wx", "alipay"], //alipay-支付宝、 baidu-百度、 wx-微信、 tt-头条、 qq-QQ、 xx-其他终端
+  platforms: ["wx", "alipay", "web"], //alipay-支付宝、 baidu-百度、 wx-微信、 tt-头条、 qq-QQ、 xx-其他终端
   buildInfo: {
     wxAppId: 'wx3513e3ba10f403a9'
   },

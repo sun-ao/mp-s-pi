@@ -1,6 +1,12 @@
 <template>
   <page title="魔方">
     <view>
+      <view>
+        <text style="font-size: 18cpx; text-align: center;">
+          请适当调整魔方，保持中心方块颜色对应
+          正(F)红、上(U)黄、下(D)白、左(L)蓝、右(R)绿、背(B)橙
+        </text>
+      </view>
       <view class="row">
         <view class="item"></view>
         <view class="{{'item-block color-' + list[0][0]}}" c-bind:tap="change(0,0)"></view>
@@ -11,7 +17,7 @@
       <view class="row">
         <view class="item"></view>
         <view class="{{'item-block color-' + list[0][3]}}" c-bind:tap="change(0,3)"></view>
-        <view class="{{'item-block color-' + list[0][4]}}" c-bind:tap="change(0,4)"></view>
+        <text class="{{'item-block-middle color-' + list[0][4]}}" c-bind:tap="change(0,4)">U</text>
         <view class="{{'item-block color-' + list[0][5]}}" c-bind:tap="change(0,5)"></view>
         <view class="item"></view>
       </view>
@@ -35,13 +41,13 @@
       </view>
       <view class="row">
         <view class="{{'item-block color-' + list[4][3]}}" c-bind:tap="change(4,3)"></view>
-        <view class="{{'item-block color-' + list[4][4]}}" c-bind:tap="change(4,4)"></view>
+        <text class="{{'item-block-middle color-' + list[4][4]}}" c-bind:tap="change(4,4)">L</text>
         <view class="{{'item-block color-' + list[4][5]}}" c-bind:tap="change(4,5)"></view>
         <view class="{{'item-block color-' + list[2][3]}}" c-bind:tap="change(2,3)"></view>
-        <view class="{{'item-block color-' + list[2][4]}}" c-bind:tap="change(2,4)"></view>
+        <text class="{{'item-block-middle color-' + list[2][4]}}" c-bind:tap="change(2,4)">F</text>
         <view class="{{'item-block color-' + list[2][5]}}" c-bind:tap="change(2,5)"></view>
         <view class="{{'item-block color-' + list[1][3]}}" c-bind:tap="change(1,3)"></view>
-        <view class="{{'item-block color-' + list[1][4]}}" c-bind:tap="change(1,4)"></view>
+        <text class="{{'item-block-middle color-' + list[1][4]}}" c-bind:tap="change(1,4)">R</text>
         <view class="{{'item-block color-' + list[1][5]}}" c-bind:tap="change(1,5)"></view>
       </view>
       <view class="row">
@@ -65,7 +71,7 @@
       <view class="row">
         <view class="item"></view>
         <view class="{{'item-block color-' + list[3][3]}}" c-bind:tap="change(3,3)"></view>
-        <view class="{{'item-block color-' + list[3][4]}}" c-bind:tap="change(3,4)"></view>
+        <text class="{{'item-block-middle color-' + list[3][4]}}" c-bind:tap="change(3,4)">D</text>
         <view class="{{'item-block color-' + list[3][5]}}" c-bind:tap="change(3,5)"></view>
         <view class="item"></view>
       </view>
@@ -86,7 +92,7 @@
       <view class="row">
         <view class="item"></view>
         <view class="{{'item-block color-' + list[5][5]}}" c-bind:tap="change(5,5)"></view>
-        <view class="{{'item-block color-' + list[5][4]}}" c-bind:tap="change(5,4)"></view>
+        <text class="{{'item-block-middle color-' + list[5][4]}}" c-bind:tap="change(5,4)">B</text>
         <view class="{{'item-block color-' + list[5][3]}}" c-bind:tap="change(5,3)"></view>
         <view class="item"></view>
       </view>
@@ -97,12 +103,14 @@
         <view class="{{'item-block color-' + list[5][0]}}" c-bind:tap="change(5,0)"></view>
         <view class="item"></view>
       </view>
-      <view class="text-area">
-        <text class="line-text">{{content}}</text>
-      </view>
       <view class="btn" c-bind:tap="cube"><text class="active-text">获取</text></view>
-      <view class="row">
-        <image src="{{imageSrc}}" style="width:100%;"></image>
+      <view class="text-area">
+        <text style="{{contentStyle}}">{{content}}</text>
+      </view>
+      <view style="flex-flow:row wrap;">
+        <view c-for="{{arrows}}" c-for-index="idx">
+          <view class="{{'cube-arrows cube-' + item}}"></view> 
+        </view>
       </view>
     </view>
   </page>
@@ -123,7 +131,8 @@ class RubikCube   {
       [5,5,5,5,5,5,5,5,5] 
     ],
     content: 'UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB',
-    imageSrc: require('../../assets/images/steps.png')  
+    contentStyle: 'font-size: 18cpx; text-align: center;', 
+    arrows: []
   }
 
   computed = {
@@ -134,10 +143,19 @@ class RubikCube   {
 
   methods = {
     change(i,j) {
+      if (j==4) {
+        cml.showToast({
+          message: "请保持中间方块颜色固定，便于算法求解！",
+          duration: 3000
+        })
+        return;
+      }
       this.list[i][j] = (this.list[i][j] + 1) % 6
     },
     cube() {
       this.content = '';
+      this.arrows = [];
+      this.contentStyle = 'font-size: 18cpx; text-align: center;';
       for (let i=0;i<6;i++) {
         for (let j=0;j<9;j++) {
           this.content += ['U','R','F','D','L','B'][this.list[i][j]];
@@ -149,7 +167,9 @@ class RubikCube   {
       }).then(res => {
         this.loading = false
         if (res.code == 1) {
-          this.content = res.result
+          this.content = res.result;
+          this.arrows = this.content.toLowerCase().replace(/\'/g, 'i').split(' ');
+          this.contentStyle = 'font-size: 28cpx; text-align: center;';
         } else {
           cml.showToast({
             message: res.message || "服务异常，请正确填充实际的配色！",
@@ -195,6 +215,7 @@ export default new RubikCube();
 </script>
 
 <style>
+  @import '../../assets/css/arrows.css';
   page {
     background-color: #ccc;
   }
@@ -226,40 +247,47 @@ export default new RubikCube();
     flex:1;
     justify-content: center;
     align-items: center;
-    border: 1cpx solid #999;
+    border: 1cpx dashed #999;
     padding-top: 10%;
+  }
+  .item-block-middle {
+    flex:1;
+    justify-content: center;
+    align-items: center;
+    border: 1cpx solid black;
+    padding-top: 2%;
+    text-align: center;
+    color: black;
+    font-size: 45cpx;
+    line-height: 100%;
   }
   .row {
     flex-direction: row;
   }
-
   .text-area {
-  margin: 10cpx 20cpx 10cpx;
-  padding: 10cpx;
-  min-height: 40cpx;
-  background-color: #ccc;
-  font-size: 20cpx;
-  color: #353535;
-  text-align: center;
-}
-.line-text {
-  font-size: 18cpx;
-  text-align: center;
-}
-.btn {
-  height: 80cpx;
-  width: 600cpx;
-  border-radius: 6cpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 30cpx 75cpx;
-  border: 1px solid #999;
-}
-.active-text {
-  color: #000;
-  font-size: 40cpx;
-}
+    margin: 10cpx;
+    padding: 10cpx;
+    min-height: 40cpx;
+    background-color: #ccc;
+    font-size: 28cpx;
+    color: #353535;
+    text-align: center;
+    border: 1cpx solid green;
+  }
+  .btn {
+    height: 80cpx;
+    width: 600cpx;
+    border-radius: 6cpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20cpx 75cpx;
+    border: 1px solid #999;
+  }
+  .active-text {
+    color: #000;
+    font-size: 40cpx;
+  }
 </style>
 
 <script cml-type="json">
