@@ -1,1 +1,7 @@
-# 做一些有趣的事
+## 开发
+
+``` BASH
+npm i -g chameleon-tool
+npm install --registry=https://registry.npm.taobao.org
+cml dev
+```
