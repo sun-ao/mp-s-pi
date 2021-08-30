@@ -5,9 +5,11 @@
         <text class="line-text">{{content}}</text>
       </view>
       <view class="btn" c-bind:tap="cube"><text class="active-text">魔方求解</text></view>
+      <!--
       <view class="btn" c-bind:tap="hitokoto"><text class="active-text">Hitokoto 一言</text></view>
       <view class="btn" c-bind:tap="soul"><text class="active-text">心灵毒鸡汤</text></view>
       <view class="btn" c-bind:tap="qinghua"><text class="active-text">土味情话</text></view>
+      -->
       <view class="btn" c-bind:tap="money"><text class="active-text">说不定就中了</text></view>
     </view>
     <c-loading loading="{{loading}}" tip="拼命加载中..."></c-loading>
@@ -27,7 +29,7 @@ class Text {
     hitokoto() {
       this.loading = true
       cml.get({
-        url: 'https://api.sunao.site/r/hitokoto'
+        url: 'https://api.sunao.cc/r/hitokoto'
       }).then(res => {
         this.content = `${res.hitokoto} —— ${res.from}`
         this.loading = false
@@ -42,7 +44,7 @@ class Text {
     soul() {
       this.loading = true
       cml.get({
-        url: 'https://api.sunao.site/mp/soul'
+        url: 'https://api.sunao.cc/mp/soul'
       }).then(res => {
         this.content = res.data.title
         this.loading = false
@@ -57,7 +59,7 @@ class Text {
     qinghua() {
       this.loading = true
       cml.get({
-        url: 'https://api.sunao.site/mp/qinghua'
+        url: 'https://api.sunao.cc/mp/qinghua'
       }).then(res => {
         this.content = res.data.content
         this.loading = false

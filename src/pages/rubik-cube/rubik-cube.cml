@@ -163,7 +163,7 @@ class RubikCube   {
       }
       this.loading = true
       cml.post({
-        url: 'https://api.sunao.site/pi/v1/cube/solve/' + this.content
+        url: 'https://api.sunao.cc/pi/v1/cube/solve/' + this.content
       }).then(res => {
         this.loading = false
         if (res.code == 1) {

@@ -1,8 +1,8 @@
 
 // 设置静态资源的线上路径
-const publicPath = '/'; // //static.sunao.site/mp
+const publicPath = '/'; // //static.sunao.cc/mp
 // 设置api请求前缀
-const apiPrefix = 'https://api.sunao.site/mp';
+const apiPrefix = 'https://api.sunao.cc/mp';
 
 cml.config.merge({
   templateLang: "cml",
